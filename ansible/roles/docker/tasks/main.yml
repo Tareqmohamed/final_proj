@@ -1,0 +1,29 @@
+---
+# tasks file for roles/docker
+#install docker
+- name: Install Docker
+  apt:
+    name: docker.io
+    state: present
+    update_cache: yes
+  become: yes
+
+#start docker
+- name: Start Docker
+  service:
+    name: docker
+    state: started
+    enabled: yes
+  become: yes
+
+- name: craete compose directory
+  file:
+    path: /usr/local/lib/docker/cli-plugins
+    state: directory
+
+- name: Install Docker Compose
+  ansible.builtin.get_url:
+    url: https://github.com/docker/compose/releases/download/v2.29.6/docker-compose-linux-x86_64
+    dest: /usr/local/lib/docker/cli-plugins/docker-compose
+    mode: '0775'
+  become: yes

@@ -1,0 +1,8 @@
+ansible
+jenkins
+terraform
+k8s
+.vscode
+.git
+.gitignore
+README.md

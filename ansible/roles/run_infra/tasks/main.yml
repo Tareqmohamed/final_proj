@@ -1,0 +1,17 @@
+---
+# tasks file for roles/run_infra
+
+# Copy Docker Compose file to the target machine
+- name: Copy Docker Compose file to target
+  template:
+    src: ./docker-compose.yml   # Path to your local docker-compose file
+    dest: /home/ubuntu/docker-compose.yml  # Path on the remote machine
+  become: yes
+
+
+# Run Docker Compose to start services
+- name: Start services with Docker Compose
+  shell: docker compose up -d
+  args:
+    chdir: /home/ubuntu/  # Change directory to where docker-compose.yml is located
+  become: yes
